@@ -1,12 +1,12 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.parzivail.herebenodragons.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "client": [
-    "ExampleMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.parzivail.herebenodragons.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"client": [
+		"LevelPropertiesMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
