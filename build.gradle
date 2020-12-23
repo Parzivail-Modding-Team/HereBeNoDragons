@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.jfrog.bintray' version '1.8.5'
 }
 
 archivesBaseName = project.archives_base_name
@@ -42,12 +43,41 @@ java {
 	// if it is present.
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
+
+	withJavadocJar()
 }
 
 jar {
 	from("LICENSE") {
 		rename {
 			"${it}_${project.archivesBaseName}"
+		}
+	}
+}
+
+bintray {
+	// Use findProperty instead of property to ensure missing properties are not errors unless required
+	user = findProperty("bintray.user")
+	key = findProperty("bintray.key")
+	publications = ["mavenJava"]
+
+	pkg {
+		repo = "here-be-no-dragons"
+		name = "here-be-no-dragons"
+		userOrg = "parzivail-modding-team"
+		desc = "Disable the \"experimental world settings\" screen"
+		websiteUrl = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons"
+		issueTrackerUrl = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons/issues"
+		vcsUrl = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons.git"
+		licenses = ["LGPL-3.0"]
+		publicDownloadNumbers = true
+
+		githubRepo = "Parzivail-Modding-Team/HereBeNoDragons"
+
+		version {
+			name = project.version
+			released = new Date()
+			vcsTag = project.version
 		}
 	}
 }
@@ -62,6 +92,43 @@ publishing {
 			}
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
+			}
+			artifact(javadocJar)
+
+			pom {
+				name = "Here be no Dragons!"
+				description = "Disable the \"experimental world settings\" screen"
+				url = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons"
+				inceptionYear = "2020"
+
+				licenses {
+					license {
+						name = "GNU Lesser General Public License 3.0"
+						url = "https://www.gnu.org/licenses/lgpl-3.0.en.html"
+					}
+				}
+
+				organization {
+					name = "Parzivail Modding Team"
+					url = "https://www.parzivail.com/"
+				}
+
+				// TODO
+				//developers {
+				//
+				//}
+
+				scm {
+					connection = "scm:git:https://github.com/Parzivail-Modding-Team/HereBeNoDragons.git"
+					developerConnection = "scm:git:ssh://git@github.com:Parzivail-Modding-Team/HereBeNoDragons.git"
+					url = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons"
+					tag = project.version
+				}
+
+				issueManagement {
+					system = "GitHub"
+					url = "https://github.com/Parzivail-Modding-Team/HereBeNoDragons/issues"
+				}
 			}
 		}
 	}
