@@ -27,7 +27,7 @@ public class LevelPropertiesMixin
 	{
 		if (lifecycle == Lifecycle.experimental())
 		{
-			log.warn("Supressing EXPERIMENTAL level lifecycle");
+			log.warn("Suppressing EXPERIMENTAL level lifecycle");
 			cir.setReturnValue(Lifecycle.stable());
 			cir.cancel();
 		}
